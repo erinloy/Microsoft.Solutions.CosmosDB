@@ -189,7 +189,7 @@ namespace Microsoft.Solutions.CosmosDB.SQL
 
         public async Task<TEntity> SaveAsync(TEntity entity)
         {
-            var result = await this._container.ReplaceItemAsync<TEntity>(entity, entity.id.ToString());
+            var result = await this._container.UpsertItemAsync<TEntity>(entity);
             return result.Resource;
 
         }

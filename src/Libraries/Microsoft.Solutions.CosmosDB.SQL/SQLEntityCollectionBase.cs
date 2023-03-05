@@ -26,7 +26,6 @@ namespace Microsoft.Solutions.CosmosDB.SQL
             this.EntityCollection = 
                 new BusinessTransactionRepository<TEntity, string>(_client,
                 CollectionName, ContainerName);
-            
         }
     }
 

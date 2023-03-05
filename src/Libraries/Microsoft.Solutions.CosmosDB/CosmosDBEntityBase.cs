@@ -15,6 +15,11 @@ namespace Microsoft.Solutions.CosmosDB
             this.__partitionkey = CosmosDBEntityBase.GetKey(id, 9999);
         }
 
+        public CosmosDBEntityBase(string id) {
+            this.id = id;
+            this.__partitionkey = CosmosDBEntityBase.GetKey(id, 9999);
+        }
+
         /// <summary>
         /// id will be generated automatically. you don't need to manage it by yourself
         /// </summary>
@@ -26,7 +31,7 @@ namespace Microsoft.Solutions.CosmosDB
         public string __partitionkey { get; set; }
 
         static SHA1 _sha1;
-
+        
         static CosmosDBEntityBase()
         {
             _sha1 = SHA1.Create();

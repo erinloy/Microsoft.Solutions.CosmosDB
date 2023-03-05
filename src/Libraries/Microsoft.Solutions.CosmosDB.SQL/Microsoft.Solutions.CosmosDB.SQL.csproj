@@ -13,8 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EAE.Solutions.CosmosDB" Version="0.7.3" />
-    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.23.0" />
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.32.1" />
   </ItemGroup>
 
   <ItemGroup>
