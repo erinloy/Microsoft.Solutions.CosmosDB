@@ -19,16 +19,20 @@ namespace Microsoft.Solutions.CosmosDB.SQL
         static bool _checkedDatabase = false;
         static bool _checkedContainer = false;
 
-        public BusinessTransactionRepository(CosmosClient client, string DatabaseName, string containerName = "")
+        public BusinessTransactionRepository(CosmosContext context)
         {
+            var client = context.Client;
+            var databaseName = context.CollectionName;
+            var containerName = context.ContainerName;
+
             if (!BusinessTransactionRepository<TEntity, TIdentifier>._checkedDatabase)
             {
-                _database = client.CreateDatabaseIfNotExistsAsync(DatabaseName).Result;
+                _database = client.CreateDatabaseIfNotExistsAsync(databaseName).Result;
                 BusinessTransactionRepository<TEntity, TIdentifier>._checkedDatabase = true;
             }
             else
             {
-                _database = client.GetDatabase(DatabaseName);
+                _database = client.GetDatabase(databaseName);
             }
 
 
@@ -194,7 +198,7 @@ namespace Microsoft.Solutions.CosmosDB.SQL
 
         }
 
-        public async Task DeleteAsync(TIdentifier EntityId, dynamic partitionKeyValue = null)
+        public async Task DeleteAsync(TIdentifier EntityId, string partitionKeyValue = null)
         {
             var cosmosEntity = await this.GetAsync(EntityId) as TEntity;
 
@@ -208,7 +212,7 @@ namespace Microsoft.Solutions.CosmosDB.SQL
             }
         }
 
-        public async Task DeleteAsync(TEntity entity, dynamic partitionKeyValue = null)
+        public async Task DeleteAsync(TEntity entity, string partitionKeyValue = null)
         {
             var cosmosEntity = entity as CosmosDBEntityBase;
 

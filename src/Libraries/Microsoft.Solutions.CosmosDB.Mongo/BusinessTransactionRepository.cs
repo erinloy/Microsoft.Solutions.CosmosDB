@@ -113,14 +113,14 @@ namespace Microsoft.Solutions.CosmosDB.Mongo
             return entity;
         }
 
-        public async Task DeleteAsync(TIdentifier entityId, dynamic partitionKeyValue = null)
+        public async Task DeleteAsync(TIdentifier entityId, string partitionKeyValue = null)
         {
             var collection = _database.GetCollection<TEntity>(typeof(TEntity).Name.ToLowerInvariant());
 
             await collection.DeleteOneAsync(x => x.id.Equals(entityId));
         }
 
-        public async Task DeleteAsync(TEntity entity, dynamic partitionKeyValue = null)
+        public async Task DeleteAsync(TEntity entity, string partitionKeyValue = null)
         {
             var collection = _database.GetCollection<TEntity>(typeof(TEntity).Name.ToLowerInvariant());
 
