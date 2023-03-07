@@ -157,7 +157,7 @@ namespace Microsoft.Solutions.CosmosDB.Test
 
     public class CosmosSQLRepository : SQLEntityCollectionBase<Person>
     {
-        public CosmosSQLRepository(string DataConnectionString, string CollectionName) : base(new CosmosContext(DataConnectionString, CollectionName))
+        public CosmosSQLRepository(string DataConnectionString, string CollectionName) : base(DataConnectionString, CollectionName)
         {
             CosmosDBLibTest.repository = this.EntityCollection;
         }

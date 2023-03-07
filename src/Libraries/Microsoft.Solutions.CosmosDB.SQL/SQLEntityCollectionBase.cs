@@ -19,10 +19,19 @@ namespace Microsoft.Solutions.CosmosDB.SQL {
         /// <param name="DataConnectionString">Connection String</param>
         /// <param name="CollectionName">Your Database Name</param>
         /// <param name="ContainerName">(Optional) If you don't pass it, The Container will be created by Entity Model Class Name + "s", In Model First Dev, You don't need to use it</param>
-        public SQLEntityCollectionBase(CosmosContext context, Func<CosmosContext, IRepository<TEntity, string>> repoFactory = null) {
+        public SQLEntityCollectionBase(string DataConnectionString, string CollectionName, string ContainerName = "")
+        {
+            _context = new CosmosContext(DataConnectionString, CollectionName, ContainerName);
+            CosmosClient _client = _context.Client;
+
+            this.EntityCollection =
+                new BusinessTransactionRepository<TEntity, string>(_context);
+
+        }
+        
+        public SQLEntityCollectionBase(CosmosContext context, IDataRepository<TEntity> entityCollection) {
             _context = context;
-            this.EntityCollection = repoFactory?.Invoke(_context);
-            this.EntityCollection ??= new BusinessTransactionRepository<TEntity, string>(_context);
+            this.EntityCollection = entityCollection;
         }
     }
 

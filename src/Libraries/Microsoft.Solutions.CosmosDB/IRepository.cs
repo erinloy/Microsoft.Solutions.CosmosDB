@@ -23,4 +23,8 @@ namespace Microsoft.Solutions.CosmosDB
         Task<IEnumerable<TEntity>> GetAllAsync(IEnumerable<TIdentifier> identifiers);
         Task<TEntity> SaveAsync(TEntity entity);
     }
+
+    public interface IDataRepository<TEntity> : IRepository<TEntity, string>
+    {
+    }
 }
